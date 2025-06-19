@@ -1,8 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+								<script>(
+									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
+								)();
+								</script>
+							<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Personal Dashboard</title>
   <style>
     :root {
@@ -11,7 +14,6 @@
       --text-light: #000000;
       --text-dark: #ffffff;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -20,20 +22,18 @@
       color: var(--text-light);
       transition: background-color 0.3s, color 0.3s;
     }
-
     body.dark {
       background-color: var(--bg-dark);
       color: var(--text-dark);
     }
-
     .tabs {
       display: flex;
       justify-content: center;
       gap: 1rem;
       padding: 1rem;
       background: #eee;
+      flex-wrap: wrap;
     }
-
     .tabs button {
       background: #ccc;
       border: none;
@@ -42,54 +42,34 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     .tabs button.active {
       background: #333;
       color: white;
     }
-
-    .toggle-btn {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
     .tab-content {
       display: none;
       padding: 2rem 1rem;
       max-width: 960px;
       margin: auto;
     }
-
     .tab-content.active {
       display: block;
     }
-
     .links {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
     }
-
     .category {
       margin-bottom: 2rem;
     }
-
     .category h3 {
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
       text-align: center;
     }
-
     .link-box {
       width: 180px;
       height: 180px;
@@ -105,11 +85,9 @@
       padding: 1rem;
       position: relative;
     }
-
     .link-box:hover {
       transform: scale(1.05);
     }
-
     .info-popup {
       display: none;
       position: absolute;
@@ -125,63 +103,76 @@
       width: 250px;
       z-index: 10;
     }
-
     .link-box:hover .info-popup {
       display: block;
     }
-
     @media (max-width: 600px) {
       .links {
         flex-direction: column;
         align-items: center;
       }
-
       .link-box {
-        width: 100%;
+        width: 90%;
         height: auto;
-        padding: 2rem;
-        font-size: 1.2rem;
+        padding: 1rem;
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
-  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('qantas')">Qantas</button>
+    <button class="tab-btn" onclick="showTab('personal')">Personal</button>
     <button class="tab-btn" onclick="showTab('vehicle')">Vehicle</button>
     <button class="tab-btn" onclick="showTab('rental')">Rental</button>
     <button class="tab-btn" onclick="showTab('finance')">Finance</button>
     <button class="tab-btn" onclick="showTab('travel')">Travel</button>
   </div>
 
+  <!-- Qantas Tab -->
   <div class="tab-content active" id="qantas">
     <div class="links" id="qantas-links"></div>
   </div>
 
-  <div class="tab-content" id="vehicle">
+  <!-- Personal Tab -->
+  <div class="tab-content" id="personal">
     <div class="links">
- <a href="https://www.service.transport.qld.gov.au/checkrego/application/TermAndConditions.xhtml?dswid=-1936" class="link-box" style="background-color: #4B6A88" target="_blank">Check Rego</a>      
-<a href="https://www.qld.gov.au/transport/registration/fees/pay/online" class="link-box" style="background-color: #4B6A88" target="_blank">Pay Rego</a>
+      <!-- PERSONAL LINKS -->
+      <a href="https://mail.google.com" class="link-box" style="background-color: #0F9D58" target="_blank">Gmail</a>
+      <a href="https://drive.google.com" class="link-box" style="background-color: #F4B400" target="_blank">Google Drive</a>
+      <a href="https://calendar.google.com" class="link-box" style="background-color: #4285F4" target="_blank">Google Calendar</a>
+      <a href="https://www.messenger.com" class="link-box" style="background-color: #DB4437" target="_blank">Messenger</a>
     </div>
   </div>
 
-<div class="tab-content" id="rental">
-    <div class="links" id="links"></div>
-<a href="https://myaccount.tangerine.com.au/Account/Login" class="link-box" style="background-color: #4B6A88" target="_blank">Internet - Tangerine</a>
-  <a href="https://www.rta.qld.gov.au/" class="link-box" style="background-color: #4B6A88" target="_blank">RTA Qld</a>
+  <!-- Vehicle Tab -->
+  <div class="tab-content" id="vehicle">
+    <div class="links">
+      <a href="https://www.service.transport.qld.gov.au/checkrego/application/TermAndConditions.xhtml" class="link-box" style="background-color: #567CA2" target="_blank">Check Rego</a>
+      <a href="https://www.qld.gov.au/transport/registration/fees/pay/online" class="link-box" style="background-color: #3A5A80" target="_blank">Pay Rego</a>
+    </div>
   </div>
 
+  <!-- Rental Tab -->
+  <div class="tab-content" id="rental">
+    <div class="links">
+      <a href="https://myaccount.tangerine.com.au/Account/Login" class="link-box" style="background-color: #A9746E" target="_blank">Internet - Tangerine</a>
+      <a href="https://www.rta.qld.gov.au/" class="link-box" style="background-color: #9C6C66" target="_blank">RTA Qld</a>
+    </div>
+  </div>
+
+  <!-- Finance Tab -->
   <div class="tab-content" id="finance">
     <div class="links">
       <a href="https://ib.nab.com.au/login" class="link-box" style="background-color: #3E7C7C" target="_blank">NAB Internet Banking</a>
-  <a href="https://mol.hostplus.com.au/?redirect=/accumulation/dashboard" class="link-box" style="background-color: #3E7C7C" target="_blank">Hostplus Super</a>
-  <a href="https://wd3.myworkday.com/wday/authgwy/qantas/login.htmld?returnTo=%2fqantas%2fd%2fhome.htmld" class="link-box" style="background-color: #3E7C7C" target="_blank">Workday</a>
+      <a href="https://mol.hostplus.com.au/?redirect=/accumulation/dashboard" class="link-box" style="background-color: #2C5E4F" target="_blank">Hostplus Super</a>
+      <a href="https://wd3.myworkday.com/wday/authgwy/qantas/login.htmld?returnTo=%2fqantas%2fd%2fhome.htmld" class="link-box" style="background-color: #6D9773" target="_blank">Workday</a>
     </div>
   </div>
 
-  <div class="tab-content" id="travel">
+ <!-- Travel Tab -->
+<div class="tab-content" id="travel">
     <div class="category">
       <h3>Flights</h3>
       <div class="links">
@@ -237,9 +228,8 @@ The discounted amount will be returned to the card used at the time of booking a
             Present Qantas ID.
           </div>
         </a>
-      </div>
-    </div>
-  </div>
+     </div>
+ 
 
   <script>
     const qantasLinks = [
@@ -270,21 +260,24 @@ The discounted amount will be returned to the card used at the time of booking a
       qantasContainer.appendChild(box);
     });
 
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("darkMode", document.body.classList.contains("dark"));
-    }
-
-    if (localStorage.getItem("darkMode") === "true") {
-      document.body.classList.add("dark");
-    }
-
     function showTab(id) {
       document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
       document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
       document.getElementById(id).classList.add("active");
       document.querySelector(`.tab-btn[onclick*='${id}']`).classList.add("active");
     }
+
+    // DARK MODE BASED ON LOCAL AEST TIME
+    (function applyDarkModeByTime() {
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      const aestTime = new Date(utc + 10 * 3600000);
+      const hour = aestTime.getHours();
+      if (hour >= 18 || hour < 8) {
+        document.body.classList.add("dark");
+      }
+    })();
   </script>
-</body>
-</html>
+
+
+</body></html>
