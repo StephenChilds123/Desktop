@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Book</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>My Recipe Book</h1>
+  </header>
+  <main id="recipe-container"></main>
+  <section id="add-recipe">
+    <h2>Add a Recipe</h2>
+    <form id="recipe-form">
+      <input type="text" placeholder="Name" id="recipe-name" required />
+      <input type="text" placeholder="Category" id="recipe-category" required />
+      <input type="text" placeholder="Image URL" id="recipe-image" required />
+      <textarea placeholder="Ingredients (one per line)" id="recipe-ingredients" required></textarea>
+      <textarea placeholder="Steps (one per line)" id="recipe-steps" required></textarea>
+      <button type="submit">Add Recipe</button>
+    </form>
+    <pre id="json-output"></pre>
+  </section>
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button" id="close-modal">&times;</span>
+      <h2 id="modal-title"></h2>
+      <h3>Ingredients</h3>
+      <ul id="modal-ingredients"></ul>
+      <h3>Steps</h3>
+      <ol id="modal-steps"></ol>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

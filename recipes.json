@@ -1,0 +1,62 @@
+{
+  "Salad Dressings": [
+    {
+      "name": "Classic Vinaigrette",
+      "image": "https://via.placeholder.com/300x200?text=Vinaigrette",
+      "ingredients": ["3 tbsp olive oil", "1 tbsp red wine vinegar", "1 tsp mustard", "Salt", "Pepper"],
+      "steps": ["Combine all ingredients", "Whisk until emulsified", "Serve over salad"]
+    },
+    {
+      "name": "Caesar Dressing",
+      "image": "https://via.placeholder.com/300x200?text=Caesar",
+      "ingredients": ["1 clove garlic", "2 anchovy fillets", "1 egg yolk", "1 tsp Worcestershire sauce", "1/2 cup olive oil"],
+      "steps": ["Mash garlic and anchovies", "Whisk in yolk and sauce", "Slowly add oil while whisking"]
+    },
+    {
+      "name": "Honey Mustard",
+      "image": "https://via.placeholder.com/300x200?text=Honey+Mustard",
+      "ingredients": ["2 tbsp mustard", "1 tbsp honey", "1 tbsp vinegar", "2 tbsp oil"],
+      "steps": ["Whisk all ingredients together", "Chill before serving"]
+    }
+  ],
+  "Salads": [
+    {
+      "name": "Greek Salad",
+      "image": "https://via.placeholder.com/300x200?text=Greek+Salad",
+      "ingredients": ["Tomatoes", "Cucumber", "Red onion", "Feta", "Olives"],
+      "steps": ["Chop vegetables", "Add feta and olives", "Toss with dressing"]
+    },
+    {
+      "name": "Garden Salad",
+      "image": "https://via.placeholder.com/300x200?text=Garden+Salad",
+      "ingredients": ["Lettuce", "Tomatoes", "Carrot", "Cucumber"],
+      "steps": ["Chop ingredients", "Toss in bowl", "Add dressing"]
+    },
+    {
+      "name": "Pasta Salad",
+      "image": "https://via.placeholder.com/300x200?text=Pasta+Salad",
+      "ingredients": ["Cooked pasta", "Cherry tomatoes", "Basil", "Mozzarella"],
+      "steps": ["Cook pasta", "Mix all ingredients", "Chill before serving"]
+    }
+  ],
+  "Breakfast": [
+    {
+      "name": "Pancakes",
+      "image": "https://via.placeholder.com/300x200?text=Pancakes",
+      "ingredients": ["1 cup flour", "1 egg", "1 cup milk", "2 tbsp sugar"],
+      "steps": ["Mix all ingredients", "Cook on griddle", "Flip when bubbles form"]
+    },
+    {
+      "name": "Omelette",
+      "image": "https://via.placeholder.com/300x200?text=Omelette",
+      "ingredients": ["2 eggs", "Cheese", "Ham", "Salt", "Pepper"],
+      "steps": ["Beat eggs", "Pour into pan", "Add fillings", "Fold and cook"]
+    },
+    {
+      "name": "Smoothie Bowl",
+      "image": "https://via.placeholder.com/300x200?text=Smoothie+Bowl",
+      "ingredients": ["Banana", "Berries", "Yogurt", "Granola"],
+      "steps": ["Blend fruit and yogurt", "Pour into bowl", "Top with granola"]
+    }
+  ]
+}
