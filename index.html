@@ -1,92 +1,292 @@
+<!DOCTYPE html>
 <html lang="en">
-								<script>(
-									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
-								)();
-								</script>
-							<head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
   <title>Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='2' width='9' height='9' rx='2.5' fill='%234f46e5'/%3E%3Crect x='13' y='2' width='9' height='9' rx='2.5' fill='%236d9773'/%3E%3Crect x='2' y='13' width='9' height='9' rx='2.5' fill='%23ffad60'/%3E%3Crect x='13' y='13' width='9' height='9' rx='2.5' fill='%233e7c7c'/%3E%3C/svg%3E">
   <style>
     :root {
-      --bg-light: #ffffff;
-      --bg-dark: #1e1e1e;
-      --text-light: #000000;
-      --text-dark: #ffffff;
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --border: #e4e6ea;
+      --text: #1a1a1a;
+      --text-muted: #6b7280;
+      --accent-brand: #4f46e5;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+      --shadow-hover: 0 8px 20px rgba(16, 24, 40, 0.10), 0 2px 6px rgba(16, 24, 40, 0.06);
+      --radius: 14px;
+    }
+    body.dark {
+      --bg: #121316;
+      --surface: #1c1e22;
+      --border: #2b2e33;
+      --text: #f2f2f3;
+      --text-muted: #9aa0a6;
+      --accent-brand: #818cf8;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.45);
+    }
+    * {
+      box-sizing: border-box;
     }
     body {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      transition: background-color 0.3s, color 0.3s;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
-    body.dark {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg);
+      transition: background-color 0.25s ease;
     }
     .tabs {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: #eee;
+      gap: 0.4rem;
+      padding: 1.75rem 1rem 1rem;
       flex-wrap: wrap;
     }
     .tabs button {
-      background: #ccc;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-weight: bold;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.5rem 1.15rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85rem;
       cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .tabs button:hover {
+      color: var(--text);
+      border-color: var(--accent-brand);
     }
     .tabs button.active {
-      background: #333;
-      color: white;
+      background: var(--accent-brand);
+      color: #ffffff;
+      border-color: var(--accent-brand);
     }
-    .tab-content {
-      display: none;
-      padding: 2rem 1rem;
-      max-width: 960px;
-      margin: auto;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .category {
-      margin-bottom: 2rem;
-    }
-    .category h3 {
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .link-box {
-      width: 180px;
-      height: 180px;
-      border-radius: 12px;
+    .search-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      color: white;
+      gap: 0.5rem;
+      padding: 0 1rem 1.25rem;
+    }
+    .theme-toggle {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--accent-brand);
+    }
+    .theme-toggle .icon-moon {
+      display: none;
+    }
+    body.dark .theme-toggle .icon-sun {
+      display: none;
+    }
+    body.dark .theme-toggle .icon-moon {
+      display: block;
+    }
+    .search-inner {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+    .search-inner::before {
+      content: "";
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--text-muted);
+      border-radius: 50%;
+      transform: translateY(-65%);
+      pointer-events: none;
+    }
+    .search-inner::after {
+      content: "";
+      position: absolute;
+      left: 1.5rem;
+      top: 50%;
+      width: 6px;
+      height: 2px;
+      background: var(--text-muted);
+      transform: translateY(35%) rotate(45deg);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+    #global-search {
+      width: 100%;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.55rem 0.9rem 0.55rem 2.3rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+    #global-search:focus {
+      outline: none;
+      border-color: var(--accent-brand);
+    }
+    #global-search::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+    .tab-content, #search-view {
+      padding: 1rem 1.5rem 3rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: tabFadeIn 0.2s ease;
+    }
+    #search-view {
+      display: none;
+    }
+    body.search-active .tab-content {
+      display: none !important;
+    }
+    body.search-active #search-view {
+      display: block;
+      animation: tabFadeIn 0.2s ease;
+    }
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tab-content.active,
+      body.search-active #search-view {
+        animation: none;
+      }
+    }
+    .search-result-heading {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin: 0 0 1rem 0.15rem;
+    }
+    .source-tag {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+    .links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .category {
+      margin-bottom: 2.5rem;
+    }
+    .category h3 {
+      border: none;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: left;
+      margin: 0 0 1rem 0.15rem;
+    }
+    .link-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text);
       text-decoration: none;
       text-align: center;
-      transition: transform 0.2s;
-      padding: 1rem;
+      padding: 1.4rem 1rem;
       position: relative;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
     .link-box:hover {
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent, var(--accent-brand));
+    }
+    .link-box .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent, var(--text-muted));
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .link-box .icon img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      padding: 3px;
+      object-fit: contain;
+    }
+    .link-box .label {
+      line-height: 1.3;
+    }
+    .plate-box {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      color: var(--text-muted);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      font-size: 1.15rem;
     }
     .info-popup {
       display: none;
@@ -94,155 +294,309 @@
       bottom: -10px;
       left: 50%;
       transform: translateX(-50%);
-      background: #222;
-      color: white;
+      background: #20242c;
+      color: #ffffff;
       font-size: 0.8rem;
-      padding: 0.5rem;
-      border-radius: 6px;
+      font-weight: 400;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow-hover);
       white-space: pre-line;
+      text-align: left;
       width: 250px;
       z-index: 10;
+      user-select: text;
+      cursor: text;
     }
     .link-box:hover .info-popup {
       display: block;
     }
     @media (max-width: 600px) {
       .links {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       }
-      .link-box {
-        width: 90%;
-        height: auto;
-        padding: 1rem;
-        font-size: 1.1rem;
-      }
+    }
+
+    .add-link-box {
+      background: transparent;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+    }
+    .add-link-box:hover {
+      border-color: var(--accent-brand);
+      color: var(--accent-brand);
+      background: color-mix(in srgb, var(--accent-brand) 8%, transparent);
+    }
+    .add-link-box .plus {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal {
+      background: var(--surface);
+      color: var(--text);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-hover);
+      width: 100%;
+      max-width: 420px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    .modal h2 {
+      margin: 0 0 1.1rem;
+      font-size: 1.1rem;
+    }
+    .modal label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0.9rem 0 0.35rem;
+    }
+    .modal input[type="text"],
+    .modal input[type="url"],
+    .modal textarea {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.65rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .modal textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+    .modal input[type="color"] {
+      width: 44px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0;
+      background: none;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 1.4rem;
+    }
+    .modal-actions button {
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .modal-btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border) !important;
+    }
+    .modal-btn-primary {
+      background: var(--accent-brand);
+      color: #ffffff;
+    }
+    .modal-snippet-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0.9rem 0 0.6rem;
+    }
+    .modal pre.snippet {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.78rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    a.link-box:focus-visible,
+    .add-link-box:focus-visible,
+    .tabs button:focus-visible,
+    .theme-toggle:focus-visible,
+    #global-search:focus-visible,
+    .modal input:focus-visible,
+    .modal textarea:focus-visible,
+    .modal-actions button:focus-visible {
+      outline: 2px solid var(--accent-brand);
+      outline-offset: 2px;
     }
   </style>
 </head>
 <body>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('qantas')">Qantas</button>
-    <button class="tab-btn" onclick="showTab('personal')">Personal</button>
-    <button class="tab-btn" onclick="showTab('vehicle')">Vehicle</button>
-    <button class="tab-btn" onclick="showTab('rental')">Rental</button>
-    <button class="tab-btn" onclick="showTab('finance')">Finance</button>
-    <button class="tab-btn" onclick="showTab('travel')">Travel</button>
+  <div class="topbar">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('qantas')">Qantas</button>
+      <button class="tab-btn" onclick="showTab('personal')">Personal</button>
+      <button class="tab-btn" onclick="showTab('vehicle')">Vehicle</button>
+      <button class="tab-btn" onclick="showTab('rental')">Rental</button>
+      <button class="tab-btn" onclick="showTab('finance')">Finance</button>
+      <button class="tab-btn" onclick="showTab('travel')">Travel</button>
+    </div>
+    <div class="search-wrap">
+      <div class="search-inner">
+        <input type="search" id="global-search" placeholder="Search all links...">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search results (spans all tabs) -->
+  <div id="search-view">
+    <div class="links" id="search-results"></div>
+    <p class="search-result-heading" id="search-empty" style="display:none;">No links match &ldquo;<span id="search-empty-term"></span>&rdquo;.</p>
   </div>
 
   <!-- Qantas Tab -->
   <div class="tab-content active" id="qantas">
-    <div class="links" id="qantas-links"></div>
+    <div class="links" id="qantas-links" data-section="Qantas"></div>
   </div>
 
   <!-- Personal Tab -->
   <div class="tab-content" id="personal">
-    <div class="links">
-      <!-- PERSONAL LINKS -->
+    <div class="links" id="personal-links" data-section="Personal">
       <a href="https://mail.google.com" class="link-box" style="background-color: #0F9D58" target="_blank">Gmail</a>
       <a href="https://drive.google.com" class="link-box" style="background-color: #F4B400" target="_blank">Google Drive</a>
       <a href="https://calendar.google.com" class="link-box" style="background-color: #4285F4" target="_blank">Google Calendar</a>
       <a href="https://www.messenger.com" class="link-box" style="background-color: #DB4437" target="_blank">Messenger</a>
+      <button class="add-link-box" data-target="personal-links"><span class="plus">+</span>Add Link</button>
     </div>
   </div>
 
   <!-- Vehicle Tab -->
   <div class="tab-content" id="vehicle">
-    <div class="links">
-      <a href="" class="link-box" style="background-color: #567CA2" target="_blank">637IJ2</a>
+    <div class="links" id="vehicle-links" data-section="Vehicle">
+      <div class="plate-box">637IJ2</div>
       <a href="https://www.service.transport.qld.gov.au/checkrego/application/TermAndConditions.xhtml" class="link-box" style="background-color: #567CA2" target="_blank">Check Rego</a>
       <a href="https://www.qld.gov.au/transport/registration/fees/pay/online" class="link-box" style="background-color: #3A5A80" target="_blank">Pay Rego</a>
       <a href="https://online.aami.com.au/wdm/aami/?intCMP=AMI:GI:PI:NPS:OSL:20231025:1319#/login" class="link-box" style="background-color: #97FCFC" target="_blank">Car Insurance</a>
-	  <a href="https://www.linkt.com.au/login" class="link-box" style="background-color: #3A5A80" target="_blank">Linkt Tolls</a>
+      <a href="https://www.linkt.com.au/login" class="link-box" style="background-color: #3A5A80" target="_blank">Linkt Tolls</a>
+      <button class="add-link-box" data-target="vehicle-links"><span class="plus">+</span>Add Link</button>
     </div>
   </div>
 
   <!-- Rental Tab -->
   <div class="tab-content" id="rental">
-    <div class="links">
+    <div class="links" id="rental-links" data-section="Rental">
       <a href="https://myaccount.tangerine.com.au/Account/Login" class="link-box" style="background-color: #A9746E" target="_blank">Internet - Tangerine</a>
       <a href="https://www.rta.qld.gov.au/" class="link-box" style="background-color: #9C6C66" target="_blank">RTA Qld</a>
- 	<a href="https://myaccount.globirdenergy.com.au/login" class="link-box" style="background-color: #9C6C66" target="_blank">Electricity - GloBird</a>
+      <a href="https://myaccount.globirdenergy.com.au/login" class="link-box" style="background-color: #9C6C66" target="_blank">Electricity - GloBird</a>
+      <button class="add-link-box" data-target="rental-links"><span class="plus">+</span>Add Link</button>
     </div>
   </div>
 
   <!-- Finance Tab -->
   <div class="tab-content" id="finance">
-    <div class="links">
+    <div class="links" id="finance-links" data-section="Finance">
       <a href="https://ib.nab.com.au/login" class="link-box" style="background-color: #3E7C7C" target="_blank">NAB Internet Banking</a>
       <a href="https://mol.hostplus.com.au/?redirect=/accumulation/dashboard" class="link-box" style="background-color: #2C5E4F" target="_blank">Hostplus Super</a>
       <a href="https://wd3.myworkday.com/wday/authgwy/qantas/login.htmld?returnTo=%2fqantas%2fd%2fhome.htmld" class="link-box" style="background-color: #6D9773" target="_blank">Workday</a>
+      <button class="add-link-box" data-target="finance-links"><span class="plus">+</span>Add Link</button>
     </div>
   </div>
 
- <!-- Travel Tab -->
-<div class="tab-content" id="travel">
+  <!-- Travel Tab -->
+  <div class="tab-content" id="travel">
     <div class="category">
       <h3>Flights</h3>
-      <div class="links">
+      <div class="links" id="flights-links" data-section="Travel · Flights">
         <a href="https://sto.qantas.com/QF/iFly/logon1;jsessionid=CB536B35998893DC38DE33D2D0253BB6#/1" class="link-box" style="background-color: #FFB347" target="_blank">Staff Travel</a>
         <a href="https://www.google.com.au/travel/flights" class="link-box" style="background-color: #FF9E80" target="_blank">Google Flights</a>
+        <button class="add-link-box" data-target="flights-links"><span class="plus">+</span>Add Link</button>
       </div>
     </div>
 
     <div class="category">
       <h3>Hotels</h3>
-      <div class="links">
-      
-  <a href="https://all.accor.com/a/en.html" class="link-box" style="background-color: #FFAD60" target="_blank">
+      <div class="links" id="hotels-links" data-section="Travel · Hotels">
+        <a href="https://all.accor.com/a/en.html" class="link-box" style="background-color: #FFAD60" target="_blank">
           Accor Hotels
           <div class="info-popup">
-           
 Client Code: SC750512642
 Access Code: QA123AU488
-
           </div>
         </a>
 
-<a href="https://www.ihg.com/content/us/en/deals/partner-offers/airline-employee" class="link-box" style="background-color: #FFAD60" target="_blank">
+        <a href="https://www.ihg.com/content/us/en/deals/partner-offers/airline-employee" class="link-box" style="background-color: #FFAD60" target="_blank">
           IHG Hotels
           <div class="info-popup">
-           
 Link automatically uses airline rates
-
           </div>
-        </a>	
-		  
-<a href="https://www.marriott.com/search/findHotels.mi?searchType=InCity&destinationAddress.country=US&clusterCode=corp&corporateCode=Z31&view=list&deviceType=desktop-web" class="link-box" style="background-color: #FFAD60" target="_blank">
+        </a>
+
+        <a href="https://www.marriott.com/search/findHotels.mi?searchType=InCity&destinationAddress.country=US&clusterCode=corp&corporateCode=Z31&view=list&deviceType=desktop-web" class="link-box" style="background-color: #FFAD60" target="_blank">
           Marriot Hotels
           <div class="info-popup">
-           
 Link automatically uses airline rates
-
           </div>
-        </a>	
+        </a>
 
-<a href="https://www.hilton.com/en/preferred-rates/airline-employee-rates/" class="link-box" style="background-color: #FFAD60" target="_blank">
+        <a href="https://www.hilton.com/en/preferred-rates/airline-employee-rates/" class="link-box" style="background-color: #FFAD60" target="_blank">
           Hilton Hotels
           <div class="info-popup">
-           
 Email: "@qantas.com.au"
-
           </div>
-        </a>	
-		  
-<a href="https://www.perx.com/" class="link-box" style="background-color: #FFB347" target="_blank">Perx</a>
+        </a>
+
+        <a href="https://www.perx.com/" class="link-box" style="background-color: #FFB347" target="_blank">Perx</a>
         <a href="https://www.id90travel.com/search/hotels" class="link-box" style="background-color: #FF9E80" target="_blank">ID90 Travel</a>
-  <a href="https://www.qantas.com/hotels" class="link-box" style="background-color: #FFAD60" target="_blank">
+        <a href="https://www.qantas.com/hotels" class="link-box" style="background-color: #FFAD60" target="_blank">
           Qantas Hotels
           <div class="info-popup">
-            Please ensure you book using your Qantas Group Employee email and that you are the lead guest on the booking (i.e. in the travelling party) for the discount to be valid.
+Please ensure you book using your Qantas Group Employee email and that you are the lead guest on the booking (i.e. in the travelling party) for the discount to be valid.
 
 Once you have completed and paid for your booking on the website, fill in the details and submit the staff discount form which can be accessed from the link on the home page of Staff Travel Online. The staff discount form must be submitted after completing your booking and before you complete your stay (check out date).
 
 The discounted amount will be returned to the card used at the time of booking after you complete your stay and checkout of the hotel (allow up to 10 business days post check out for the discount to be applied). The discount is only applied to the cash component of your booking, not on any component of the booking paid with Qantas Points or vouchers.
           </div>
         </a>
+        <button class="add-link-box" data-target="hotels-links"><span class="plus">+</span>Add Link</button>
+      </div>
     </div>
 
     <div class="category">
       <h3>Hire Cars</h3>
-      <div class="links">
+      <div class="links" id="hirecars-links" data-section="Travel · Hire Cars">
         <a href="https://www.avis.com.au" class="link-box" style="background-color: #FFAD60" target="_blank">
           AVIS
           <div class="info-popup">
@@ -260,8 +614,51 @@ The discounted amount will be returned to the card used at the time of booking a
             Present Qantas ID.
           </div>
         </a>
-     </div>
- 
+        <button class="add-link-box" data-target="hirecars-links"><span class="plus">+</span>Add Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Link modal -->
+  <div class="modal-overlay" id="add-link-overlay">
+    <div class="modal">
+      <div id="add-link-form-view">
+        <h2>Add a link</h2>
+        <label for="add-link-name">Name</label>
+        <input type="text" id="add-link-name" placeholder="e.g. Amex">
+
+        <label for="add-link-url">URL</label>
+        <input type="url" id="add-link-url" placeholder="https://...">
+
+        <div id="add-link-notes-group">
+          <label for="add-link-notes">Notes (optional, shown on hover)</label>
+          <textarea id="add-link-notes" placeholder="Account number, tips, etc."></textarea>
+        </div>
+
+        <div id="add-link-color-group">
+          <label for="add-link-color">Tile color</label>
+          <input type="color" id="add-link-color" value="#4f46e5">
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn-secondary" onclick="closeAddLinkModal()">Cancel</button>
+          <button class="modal-btn-primary" onclick="submitAddLink()">Preview &amp; get snippet</button>
+        </div>
+      </div>
+      <div id="add-link-result-view" style="display:none;">
+        <h2>Snippet ready</h2>
+        <p class="modal-snippet-note">
+          A live preview was added to the page so you can see how it looks (it will disappear on reload).
+          Copy the code below and paste it into the matching spot in your HTML file, then commit it to GitHub to make it permanent.
+        </p>
+        <pre class="snippet" id="add-link-snippet"></pre>
+        <div class="modal-actions">
+          <button class="modal-btn-secondary" onclick="closeAddLinkModal()">Close</button>
+          <button class="modal-btn-primary" onclick="copyAddLinkSnippet(event)">Copy snippet</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const qantasLinks = [
@@ -274,15 +671,15 @@ The discounted amount will be returned to the card used at the time of booking a
       { name: "Intelex", url: "https://global.intelex.com/login/Qantas/Application/Home" },
       { name: "E-File Regional", url: "https://course-aas.qantas.com.au/course-aas/web" },
       { name: "Uniforms", url: "https://www.wwgonline.com.au/login" },
-	  { name: "ADP", url: "https://my.adppayroll.com.au" },
-	  { name: "Airbus E-Training", url: "https://e-trainingbyairbus.csod.com/ui/lms-learning-details/app/curriculum/43b9715e-4f25-4613-af70-31d46f662af0" },
+      { name: "ADP", url: "https://my.adppayroll.com.au" },
+      { name: "Airbus E-Training", url: "https://e-trainingbyairbus.csod.com/ui/lms-learning-details/app/curriculum/43b9715e-4f25-4613-af70-31d46f662af0" },
       { name: "ThankQ", url: "https://www.culturecloud.com" }
     ];
 
     const qantasContainer = document.getElementById("qantas-links");
     const qantasColors = [
       "#3E7C7C", "#4B6A88", "#6D9773", "#2C5E4F",
-      "#52796F", "#3A506B", "#4C7C5A", "#365B6D", "#536B78" , "#6D9773", "#2C5E4F", "#4C7C5A"
+      "#52796F", "#3A506B", "#4C7C5A", "#365B6D", "#536B78", "#6D9773", "#2C5E4F", "#4C7C5A"
     ];
 
     qantasLinks.forEach((link, index) => {
@@ -295,24 +692,315 @@ The discounted amount will be returned to the card used at the time of booking a
       qantasContainer.appendChild(box);
     });
 
+    const qantasAddButton = document.createElement("button");
+    qantasAddButton.className = "add-link-box";
+    qantasAddButton.dataset.target = "qantas-links";
+    qantasAddButton.innerHTML = '<span class="plus">+</span>Add Link';
+    qantasContainer.appendChild(qantasAddButton);
+
+    // Fetch a site's favicon via Google's public favicon service, falling
+    // back to a letter avatar if it fails to load. Note: this makes a
+    // third-party request per domain on page load.
+    function faviconUrl(href) {
+      try {
+        const host = new URL(href, window.location.href).hostname;
+        return `https://www.google.com/s2/favicons?sz=64&domain=${encodeURIComponent(host)}`;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function buildIcon(label, href) {
+      const icon = document.createElement("span");
+      icon.className = "icon";
+      // Start with the original letter-avatar look; only swap in the
+      // favicon once it's confirmed to load, so a missing/blocked/slow
+      // favicon just quietly stays as the letter instead of flashing a
+      // blank or broken image.
+      icon.textContent = label.charAt(0).toUpperCase();
+
+      const url = href ? faviconUrl(href) : null;
+      if (url) {
+        const probe = new Image();
+        probe.onload = () => {
+          if (probe.naturalWidth === 0) return;
+          icon.innerHTML = "";
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "";
+          icon.appendChild(img);
+        };
+        probe.src = url;
+      }
+      return icon;
+    }
+
+    // Turn each colored link-box into a neutral card with a small
+    // accent-colored icon, instead of a solid color tile
+    function modernizeLinkBoxes() {
+      document.querySelectorAll("a.link-box").forEach(box => {
+        const accent = box.style.backgroundColor;
+        box.style.backgroundColor = "";
+        if (accent) box.style.setProperty("--accent", accent);
+
+        let label = "";
+        box.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const t = node.textContent.trim();
+            if (t) label = t;
+          }
+        });
+        if (!label) return;
+
+        const extras = Array.from(box.children);
+        box.textContent = "";
+
+        const icon = buildIcon(label, box.href);
+
+        const text = document.createElement("span");
+        text.className = "label";
+        text.textContent = label;
+
+        box.appendChild(icon);
+        box.appendChild(text);
+        extras.forEach(extra => box.appendChild(extra));
+      });
+    }
+    modernizeLinkBoxes();
+
+    // Let clicks/double-clicks inside a popup select text instead of
+    // following the parent link
+    document.querySelectorAll(".info-popup").forEach(popup => {
+      popup.addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      popup.addEventListener("mousedown", e => {
+        e.stopPropagation();
+      });
+    });
+
+    // ---- Add Link modal ----
+    let addLinkTargetId = null;
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function openAddLinkModal(targetId) {
+      addLinkTargetId = targetId;
+      document.getElementById("add-link-name").value = "";
+      document.getElementById("add-link-url").value = "";
+      document.getElementById("add-link-notes").value = "";
+      document.getElementById("add-link-color").value = "#4f46e5";
+
+      const isQantas = targetId === "qantas-links";
+      document.getElementById("add-link-notes-group").style.display = isQantas ? "none" : "block";
+      document.getElementById("add-link-color-group").style.display = isQantas ? "none" : "block";
+
+      document.getElementById("add-link-form-view").style.display = "block";
+      document.getElementById("add-link-result-view").style.display = "none";
+      document.getElementById("add-link-overlay").classList.add("open");
+      document.getElementById("add-link-name").focus();
+    }
+
+    function closeAddLinkModal() {
+      document.getElementById("add-link-overlay").classList.remove("open");
+      addLinkTargetId = null;
+    }
+
+    function submitAddLink() {
+      const name = document.getElementById("add-link-name").value.trim();
+      const url = document.getElementById("add-link-url").value.trim();
+      const notes = document.getElementById("add-link-notes").value.trim();
+      const color = document.getElementById("add-link-color").value;
+
+      if (!name || !url) {
+        alert("Please fill in both a name and a URL.");
+        return;
+      }
+
+      const container = document.getElementById(addLinkTargetId);
+      const addButton = container.querySelector(".add-link-box");
+      const isQantas = addLinkTargetId === "qantas-links";
+
+      // Live preview (not persisted - lost on reload)
+      const previewAccent = isQantas
+        ? qantasColors[container.querySelectorAll("a.link-box").length % qantasColors.length]
+        : color;
+
+      const box = document.createElement("a");
+      box.href = url;
+      box.className = "link-box";
+      box.target = "_blank";
+      box.style.setProperty("--accent", previewAccent);
+
+      const icon = buildIcon(name, url);
+      const label = document.createElement("span");
+      label.className = "label";
+      label.textContent = name;
+      box.appendChild(icon);
+      box.appendChild(label);
+
+      if (!isQantas && notes) {
+        const popup = document.createElement("div");
+        popup.className = "info-popup";
+        popup.textContent = notes;
+        popup.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); });
+        popup.addEventListener("mousedown", e => e.stopPropagation());
+        box.appendChild(popup);
+      }
+
+      container.insertBefore(box, addButton);
+
+      // Snippet to paste into the source file
+      let snippet;
+      if (isQantas) {
+        snippet = `{ name: "${name.replace(/"/g, '\\"')}", url: "${url.replace(/"/g, '\\"')}" },\n\n`
+          + `Add this to the qantasLinks array near the top of the <script> block.\n`
+          + `Its color is assigned automatically from the existing rotation.`;
+      } else {
+        const nameEsc = escapeHtml(name);
+        const urlEsc = escapeHtml(url);
+        if (notes) {
+          snippet = `<a href="${urlEsc}" class="link-box" style="background-color: ${color}" target="_blank">\n`
+            + `  ${nameEsc}\n`
+            + `  <div class="info-popup">\n${escapeHtml(notes)}\n  </div>\n`
+            + `</a>`;
+        } else {
+          snippet = `<a href="${urlEsc}" class="link-box" style="background-color: ${color}" target="_blank">${nameEsc}</a>`;
+        }
+      }
+
+      document.getElementById("add-link-snippet").textContent = snippet;
+      document.getElementById("add-link-form-view").style.display = "none";
+      document.getElementById("add-link-result-view").style.display = "block";
+    }
+
+    function copyAddLinkSnippet(event) {
+      const text = document.getElementById("add-link-snippet").textContent;
+      const btn = event.currentTarget;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    }
+
+    document.querySelectorAll(".add-link-box").forEach(btn => {
+      btn.addEventListener("click", () => openAddLinkModal(btn.dataset.target));
+    });
+
+    document.getElementById("add-link-overlay").addEventListener("click", e => {
+      if (e.target.id === "add-link-overlay") closeAddLinkModal();
+    });
+
     function showTab(id) {
+      clearSearch();
       document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
       document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
       document.getElementById(id).classList.add("active");
       document.querySelector(`.tab-btn[onclick*='${id}']`).classList.add("active");
     }
 
-    // DARK MODE BASED ON LOCAL AEST TIME
-    (function applyDarkModeByTime() {
+    // ---- Search across all tabs ----
+    const searchInput = document.getElementById("global-search");
+    const searchResults = document.getElementById("search-results");
+    const searchEmpty = document.getElementById("search-empty");
+    const searchEmptyTerm = document.getElementById("search-empty-term");
+
+    function wirePopup(popup) {
+      popup.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); });
+      popup.addEventListener("mousedown", e => e.stopPropagation());
+    }
+
+    function runSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        document.body.classList.remove("search-active");
+        return;
+      }
+      document.body.classList.add("search-active");
+      searchResults.innerHTML = "";
+
+      const candidates = document.querySelectorAll(".tab-content a.link-box, .tab-content .plate-box");
+      let matches = 0;
+      candidates.forEach(el => {
+        const label = (el.querySelector(".label")?.textContent || el.textContent || "").trim();
+        const href = el.getAttribute("href") || "";
+        const haystack = (label + " " + href).toLowerCase();
+        if (!haystack.includes(q)) return;
+
+        matches++;
+        const clone = el.cloneNode(true);
+        const section = el.closest(".links")?.dataset.section;
+        if (section) {
+          const tag = document.createElement("span");
+          tag.className = "source-tag";
+          tag.textContent = section;
+          const labelEl = clone.querySelector(".label");
+          if (labelEl) {
+            labelEl.insertAdjacentElement("afterend", tag);
+          } else {
+            clone.appendChild(tag);
+          }
+        }
+        clone.querySelectorAll(".info-popup").forEach(wirePopup);
+        searchResults.appendChild(clone);
+      });
+
+      searchEmptyTerm.textContent = query.trim();
+      searchEmpty.style.display = matches === 0 ? "block" : "none";
+      searchResults.style.display = matches === 0 ? "none" : "grid";
+    }
+
+    function clearSearch() {
+      searchInput.value = "";
+      document.body.classList.remove("search-active");
+    }
+
+    searchInput.addEventListener("input", () => runSearch(searchInput.value));
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        clearSearch();
+        searchInput.blur();
+      }
+    });
+
+    // Dark mode: a manual toggle overrides everything once used (remembered
+    // via localStorage); otherwise fall back to local AEST time or the
+    // system preference.
+    const THEME_STORAGE_KEY = "dashboard-theme-override";
+
+    (function applyInitialTheme() {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === "dark") {
+        document.body.classList.add("dark");
+        return;
+      }
+      if (stored === "light") {
+        document.body.classList.remove("dark");
+        return;
+      }
       const now = new Date();
       const utc = now.getTime() + now.getTimezoneOffset() * 60000;
       const aestTime = new Date(utc + 10 * 3600000);
       const hour = aestTime.getHours();
-      if (hour >= 18 || hour < 8) {
+      const isNightAEST = hour >= 18 || hour < 8;
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (isNightAEST || prefersDark) {
         document.body.classList.add("dark");
       }
     })();
+
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+    });
   </script>
-
-
-</body></html>
+</body>
+</html>
